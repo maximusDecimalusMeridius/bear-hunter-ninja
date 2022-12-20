@@ -25,9 +25,9 @@
             <div id="game-window-top" class="game-frame">
                 <div id="game-info" class="game-window-item">
                     <ul id="score-line">
-                        <li id="wins" class="score-item">Wins: 0</li>
-                        <li id="ties" class="score-item">Ties: 0</li>
-                        <li id="losses" class="score-item">Losses: 0</li>
+                        <li class="score-item">Wins: <span id="wins">0</span></li>
+                        <li class="score-item">Ties: <span id="ties">0</span></li>
+                        <li class="score-item">Losses: <span id="losses">0</span></li>
                     </ul>
                     <ul id="stats-line">
                         <li class="stats-item">Bear Picks: <span id="bear-picks">0</span></li>
@@ -52,7 +52,6 @@
                     <li class="role-select-item no-select" onclick="ChooseCharacter('hunter')">Hunter</li>
                     <li class="role-select-item no-select" onclick="ChooseCharacter('ninja')">Ninja</li>
                 </ul>
-                <div id="fight-button" onclick="Fight()"></div>
                 <ul id="background-select" class="selection-menu">
                     <li class="background-select-item no-select" onclick="ChooseBackground('forest')">Forest</li>
                     <li class="background-select-item no-select" onclick="ChooseBackground('lava')">Lava</li>

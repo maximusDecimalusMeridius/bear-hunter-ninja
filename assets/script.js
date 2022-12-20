@@ -16,14 +16,17 @@ function generateChoice() {
     switch(Math.floor(Math.random() * 3)){
         case 0:
             computerChoice = "Bear";
+            computerCharacterNode.style.backgroundColor = "red";
             return("bear");
 
         case 1:
             computerChoice = "Hunter";
+            computerCharacterNode.style.backgroundColor = "blue";
             return("hunter");
 
         case 2:
             computerChoice = "Ninja";
+            computerCharacterNode.style.backgroundColor = "green";
             return("ninja");
 
         default:
@@ -77,56 +80,36 @@ console.log(human, computer);
 
 function countIt(result) {
     switch (result){
-        case ("Win!"):
-            winCount++;
+        case ("win"):
+            document.getElementById("wins").innerHTML = `${++winCount}`;
             break;
-        case ("Tie"):
-            tieCount++;
+        case ("tie"):
+            document.getElementById("ties").innerHTML = `${++tieCount}`;
             break;
-        case ("Loss"):
-            lossCount++;
+        case ("loss"):
+            document.getElementById("losses").innerHTML = `${++lossCount}`;
             break;
         default:
             break;
     }
 }
 
-function displayRecord() {
-    
-    alert(`
-    Your choice: ${yourChoice}
-    Computer choice: ${computerChoice}
-
-    ${outcomeMessage}
-    
-    ============
-     Scoreboard
-    ============
-    Wins:   ${winCount}
-    Ties:   ${tieCount}
-    Losses: ${lossCount}
-    `
-    );
-}
-
 // Variables
 var userCharacter, computerCharacter;                   // Declare inputs
 var winCount = 0, lossCount = 0, tieCount = 0;          // Initialize counters
 var bearCount = 0, hunterCount = 0, ninjaCount = 0;          // Initialize counters
-var playAgain = 1;                                      // Flag tracking whether or not a player plays the game once.
-const validationArray = ["r","p","s"];
 
 // Get elements
 let popUpMessageNode = document.getElementById("pop-up-message");
 let popUpCoverNode = document.getElementById("pop-up-cover");
 let gameWindowTopNode = document.getElementById("game-window-top");
 let playerCharacterNode = document.getElementById("player-one");
+let computerCharacterNode = document.getElementById("player-two");
 let statusMessage = document.getElementById("status-message");
 
 function ShowPopUp() {
     popUpMessageNode.style.display = "flex";
     popUpCoverNode.style.display = "block";
-
 }
 
 function HidePopUp() {
@@ -160,6 +143,8 @@ function ChooseCharacter(choice){
         default:
             break;
     }
+
+    Fight();
 }
 
 function ChooseBackground(choice){
@@ -183,7 +168,8 @@ function ChooseBackground(choice){
 }
 
 function Fight(){
-    console.log(whoWon(userCharacter, generateChoice()));
+    countIt(whoWon(userCharacter, generateChoice()));
+    console.log(winCount, tieCount, lossCount);
     
 }
 
