@@ -17,33 +17,41 @@
     <header>
         <div class="site-banner"></div>
     </header>
+    
     <main>
-        <section id="game-window" class="game-section">
+
+        <div id="game-window">
+            <!-- Top game window where all the action happens -->
             <div id="game-window-top" class="game-frame">
-                <div class="game-window-item"></div>
-                <div class="game-window-item"></div>
-                <div class="game-window-item"></div>
-                <div class="game-window-item"></div>
+                <div id="game-info" class="game-window-item"></div>
+                <div id="pop-up-message" class="game-window-item"></div>
+                <div id="player-one" class="player"></div>
+                <div id="player-two" class="player"></div>
             </div>
+
+            <!-- Bottom game window with selection menus -->
             <div id="game-window-bottom" class="game-frame">
                 <ul id="role-select" class="selection-menu">
-                    <li class="role-select-item"></li>
-                    <li class="role-select-item"></li>
-                    <li class="role-select-item"></li>
+                    <li class="role-select-item">Bear</li>
+                    <li class="role-select-item">Hunter</li>
+                    <li class="role-select-item">Ninja</li>
                 </ul>
                 <ul id="background-select" class="selection-menu">
-                    <li class="background-select-item"></li>
-                    <li class="background-select-item"></li>
-                    <li class="background-select-item"></li>
+                    <li class="background-select-item">Forest</li>
+                    <li class="background-select-item">Lava</li>
+                    <li class="background-select-item">Grocery Store</li>
                 </ul>
             </div>
-        </section>
-        <section id="status-bar" class="game-section">
+        </div>
+
+        <!-- Status bar to display outcomes and messages -->
+        <div id="status-bar">
             <div id="status-window">
-                <p id="status-message"></p>
+                <p id="status-message">Test Status Message</p>
             </div>
-        </section>
+        </div>
     </main>
+    
     <footer>
         <div id="thanks" class="footer-div"></div>
         <div id="div2" class="footer-div"></div>
