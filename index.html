@@ -6,11 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="./assets/style.css">
+    <script src="./assets/script.js" defer></script>
 </head>
 <body>
-    <div id="user-message">
+    <!-- <div id="user-message">
         <h1 id="goodbye-message">Thanks for playing!</h1>    
-    </div>
-    <script src="./assets/script.js"></script>
+    </div> -->
+    <!-- header>div.site-banner^main>section#game-window.game-section>div#game-window-top.game-frame>div.game-window-item*4^div#game-window-bottom.game-frame>ul#role-select.selection-menu>li.role-select-item*3^ul#background-select.selection-menu>li.background-select-item*3^^^section#status-bar.game-section>div#status-window>p#status-message^^^footer>div#thanks.footer-div+div#div2.footer-div -->
+
+    <header>
+        <div class="site-banner"></div>
+    </header>
+    <main>
+        <section id="game-window" class="game-section">
+            <div id="game-window-top" class="game-frame">
+                <div class="game-window-item"></div>
+                <div class="game-window-item"></div>
+                <div class="game-window-item"></div>
+                <div class="game-window-item"></div>
+            </div>
+            <div id="game-window-bottom" class="game-frame">
+                <ul id="role-select" class="selection-menu">
+                    <li class="role-select-item"></li>
+                    <li class="role-select-item"></li>
+                    <li class="role-select-item"></li>
+                </ul>
+                <ul id="background-select" class="selection-menu">
+                    <li class="background-select-item"></li>
+                    <li class="background-select-item"></li>
+                    <li class="background-select-item"></li>
+                </ul>
+            </div>
+        </section>
+        <section id="status-bar" class="game-section">
+            <div id="status-window">
+                <p id="status-message"></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div id="thanks" class="footer-div"></div>
+        <div id="div2" class="footer-div"></div>
+    </footer>
 </body>
 </html>
