@@ -8,7 +8,8 @@
     <link rel="stylesheet" type="text/css" href="./assets/style.css">
     <script src="./assets/script.js" defer></script>
 </head>
-<body>
+<body id="body" onload="ShowPopUp()">
+    <div id="pop-up-cover"></div>
     <!-- <div id="user-message">
         <h1 id="goodbye-message">Thanks for playing!</h1>    
     </div> -->
@@ -19,12 +20,27 @@
     </header>
     
     <main>
-
         <div id="game-window">
             <!-- Top game window where all the action happens -->
             <div id="game-window-top" class="game-frame">
-                <div id="game-info" class="game-window-item"></div>
-                <div id="pop-up-message" class="game-window-item"></div>
+                <div id="game-info" class="game-window-item">
+                    <ul id="score-line">
+                        <li id="wins" class="score-item">Wins: 0</li>
+                        <li id="ties" class="score-item">Ties: 0</li>
+                        <li id="losses" class="score-item">Losses: 0</li>
+                    </ul>
+                    <ul id="stats-line">
+                        <li class="stats-item">Bear Picks: <span id="bear-picks">0</span></li>
+                        <li class="stats-item">Hunter Picks: <span id="hunter-picks">0</span></li>
+                        <li class="stats-item">Ninja Picks: <span id="ninja-picks">0</span></li>
+                    </ul>
+                </div>
+                <div id="pop-up-message" class="game-window-item">
+                    
+                    <div id="pop-up-title">Welcome!</div>
+                    <p id="pop-up-text">JavaScript Bear, Hunter, Ninja<br><br>Select a role and click FIGHT!</p>
+                    <div id="pop-up-button" onclick="HidePopUp()">OK!</div>
+                </div>
                 <div id="player-one" class="player"></div>
                 <div id="player-two" class="player"></div>
             </div>
@@ -32,14 +48,15 @@
             <!-- Bottom game window with selection menus -->
             <div id="game-window-bottom" class="game-frame">
                 <ul id="role-select" class="selection-menu">
-                    <li class="role-select-item">Bear</li>
-                    <li class="role-select-item">Hunter</li>
-                    <li class="role-select-item">Ninja</li>
+                    <li class="role-select-item no-select" onclick="ChooseCharacter('bear')">Bear</li>
+                    <li class="role-select-item no-select" onclick="ChooseCharacter('hunter')">Hunter</li>
+                    <li class="role-select-item no-select" onclick="ChooseCharacter('ninja')">Ninja</li>
                 </ul>
+                <div id="fight-button" onclick="Fight()"></div>
                 <ul id="background-select" class="selection-menu">
-                    <li class="background-select-item">Forest</li>
-                    <li class="background-select-item">Lava</li>
-                    <li class="background-select-item">Grocery Store</li>
+                    <li class="background-select-item no-select" onclick="ChooseBackground('forest')">Forest</li>
+                    <li class="background-select-item no-select" onclick="ChooseBackground('lava')">Lava</li>
+                    <li class="background-select-item no-select" onclick="ChooseBackground('grocery')">Grocery Store</li>
                 </ul>
             </div>
         </div>
@@ -47,7 +64,7 @@
         <!-- Status bar to display outcomes and messages -->
         <div id="status-bar">
             <div id="status-window">
-                <p id="status-message">Test Status Message</p>
+                <p id="status-message">Select a character to fight, or change the background!</p>
             </div>
         </div>
     </main>

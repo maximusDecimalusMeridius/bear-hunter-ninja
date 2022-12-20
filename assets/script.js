@@ -15,16 +15,16 @@
 function generateChoice() {
     switch(Math.floor(Math.random() * 3)){
         case 0:
-            computerChoice = "Rock";
-            return("r");
+            computerChoice = "Bear";
+            return("bear");
 
         case 1:
-            computerChoice = "Paper";
-            return("p");
+            computerChoice = "Hunter";
+            return("hunter");
 
         case 2:
-            computerChoice = "Scissors";
-            return("s");
+            computerChoice = "Ninja";
+            return("ninja");
 
         default:
             alert("Oh node! Something went wrong!");    
@@ -33,61 +33,40 @@ function generateChoice() {
 }
 
 function whoWon(human, computer) {
-    
-        //Present an error and prompt user for a valid input until they enter one
-    while(!validationArray.includes(human) || human === null){
-        human = prompt("ERROR: Please select a VALID choice - R, P, or S to signify your choice of rock, paper, or scissors");
-        // set global userInput variable to new value
-        userInput = human;
-    }
-
-    switch(human){
-        case ("r"):
-            yourChoice = "Rock";
-            break;
-        case ("p"):
-            yourChoice = "Paper";
-            break;
-        case ("s"):
-            yourChoice = "Scissors";
-            break;
-        default:
-            alert("Oh node! Something went wrong!");
-    }
-
+console.log(human, computer);
     if(human === computer){
-        outcomeMessage = `${yourChoice} = ${computerChoice}. Tie. :|`
-        return("Tie");
+        return("tie");
     } else {
         switch (computer){
-            case ("r"):
-                if(human === "s"){
-                    outcomeMessage = "Rock crushes your scissors. You lose. :(";
-                    return("Loss");
-                } else if (human === "p"){
-                    outcomeMessage = "Paper overshadows rock!!! Winner!"
-                    return("Win!");
+            case ("bear"):
+                if(human === "hunter"){
+                    outcomeMessage = "You shoot the bear *BANG* and win!!";
+                    return("win");
+                } else if (human === "ninja"){
+                    outcomeMessage = "The bear overpowers you. You Lose :("
+                    return("loss");
                 }
                 break;
                 
-            case ("p"):
-                if(human === "s"){
-                    outcomeMessage = "Scissors slice through paper!! You win!!"
-                    return("Win!");
-                } else if(human === "r") {
-                    outcomeMessage = "Paper covers your rock. You lose. :(";
-                    return("Loss");
+            case ("hunter"):
+                if(human === "bear"){
+                    outcomeMessage = "Headshot, you lose :("
+                    return("loss");
+                } else if(human === "ninja") {
+                    outcomeMessage = "Your ninja skills prevail! You win!!";
+                    return("win");
                 }
                 break;
                     
-            case ("s"):
-                if(human === "p"){
-                    outcomeMessage = "Your paper got cut.  You lose. :(";
-                    return("Loss");
-                } else if(human === "r"){
-                    outcomeMessage = "Rock smashes scissors into tiny bits!! You win!!!";
-                    return("Win!");
+            case ("ninja"):
+                if(human === "bear"){
+                    outcomeMessage = "You overpower the ninja and WIN!!";
+                    return("win");
+                } else if(human === "hunter"){
+                    outcomeMessage = "You didn't hear the ninja. You lose.";
+                    return("loss");
                 }
+                break;
 
             default:
                 alert("Oh node! Something went wrong!");
@@ -131,38 +110,109 @@ function displayRecord() {
 }
 
 // Variables
-var userInput, computerInput;                           // Declare inputs
-var yourChoice, computerChoice, outcomeMessage;         // Wordified values of selections
+var userCharacter, computerCharacter;                   // Declare inputs
 var winCount = 0, lossCount = 0, tieCount = 0;          // Initialize counters
+var bearCount = 0, hunterCount = 0, ninjaCount = 0;          // Initialize counters
 var playAgain = 1;                                      // Flag tracking whether or not a player plays the game once.
 const validationArray = ["r","p","s"];
 
-// Display welcome message to user explaining the rules
-// Caution, disgusting spacing to bump to multiple lines in dialog box!!!
-if (confirm("Welcome to Browser RPS!  Click 'OK/Confirm' to Proceed                                   Click 'Cancel' to run away :'(")){
-    
-    do{
-    
-        // Read and store input from user
-        // Generate PC choice   
-        userInput = prompt("Please Select R, P, or S to signify your choice of rock, paper, or scissors");
-        while(!validationArray.includes(userInput) || userInput === null){
-            userInput = prompt("ERROR: Please select a VALID choice - R, P, or S to signify your choice of rock, paper, or scissors");
-        }
-        computerInput = generateChoice();
-        
-        // Compare values and count
-        countIt(whoWon(userInput.toLowerCase(), computerInput));
-        
-        // Display scoreboard
-        displayRecord();
+// Get elements
+let popUpMessageNode = document.getElementById("pop-up-message");
+let popUpCoverNode = document.getElementById("pop-up-cover");
+let gameWindowTopNode = document.getElementById("game-window-top");
+let playerCharacterNode = document.getElementById("player-one");
+let statusMessage = document.getElementById("status-message");
 
-        if(!confirm("Would you like to play again?")){
-           playAgain = 0; 
-        }
-    } while (playAgain === 1);
+function ShowPopUp() {
+    popUpMessageNode.style.display = "flex";
+    popUpCoverNode.style.display = "block";
 
 }
+
+function HidePopUp() {
+    popUpMessageNode.style.display = "none";
+    popUpCoverNode.style.display = "none";
+}
+
+function ChooseCharacter(choice){
+    userCharacter = choice;
+    statusMessage.innerHTML = `You picked ${choice}!!`;
+    
+    switch(choice){
+        case ("bear"):
+            playerCharacterNode.style.backgroundColor = "red";
+            bearCount++;
+            document.getElementById(`${choice}-picks`).innerHTML = `${bearCount}`
+            break;
+
+        case ("hunter"):
+            playerCharacterNode.style.backgroundColor = "blue";    
+            hunterCount++;
+            document.getElementById(`${choice}-picks`).innerHTML = `${hunterCount}`
+            break;
+
+        case ("ninja"):
+            playerCharacterNode.style.backgroundColor = "green";
+            ninjaCount++;
+            document.getElementById(`${choice}-picks`).innerHTML = `${ninjaCount}`
+            break;
+
+        default:
+            break;
+    }
+}
+
+function ChooseBackground(choice){
+    switch (choice){
+        case "forest":
+            gameWindowTopNode.style.backgroundColor = "green";
+            break;
+
+        case "lava":
+            gameWindowTopNode.style.backgroundColor = "blue";
+            break;
+
+        case "grocery":
+            gameWindowTopNode.style.backgroundColor = "pink";
+            break;
+
+        default:
+            break;
+    }
+    statusMessage.innerHTML = `Changing background to ${choice}...`;
+}
+
+function Fight(){
+    console.log(whoWon(userCharacter, generateChoice()));
+    
+}
+
+// Display welcome message to user explaining the rules
+// Caution, disgusting spacing to bump to multiple lines in dialog box!!!
+// if (confirm("Welcome to Browser RPS!  Click 'OK/Confirm' to Proceed                                   Click 'Cancel' to run away :'(")){
+    
+//     do{
+    
+//         // Read and store input from user
+//         // Generate PC choice   
+//         userCharacter = prompt("Please Select R, P, or S to signify your choice of rock, paper, or scissors");
+//         while(!validationArray.includes(userCharacter) || userCharacter === null){
+//             userCharacter = prompt("ERROR: Please select a VALID choice - R, P, or S to signify your choice of rock, paper, or scissors");
+//         }
+//         computerCharacter = generateChoice();
+        
+//         // Compare values and count
+//         countIt(whoWon(userCharacter.toLowerCase(), computerCharacter));
+        
+//         // Display scoreboard
+//         displayRecord();
+
+//         if(!confirm("Would you like to play again?")){
+//            playAgain = 0; 
+//         }
+//     } while (playAgain === 1);
+
+// }
 // else {
 
 //     // Change goodbye message if user visits the page but doesn't play a round
@@ -173,6 +223,3 @@ if (confirm("Welcome to Browser RPS!  Click 'OK/Confirm' to Proceed             
 //     goodbyeMessage.appendChild(newSpan);
 
 // }
-
-// Make the user message div visible when the player is finished playing
-document.getElementById("user-message").style.display = "block";
