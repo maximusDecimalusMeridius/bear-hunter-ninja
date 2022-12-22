@@ -53,13 +53,13 @@ img, picture, svg, video {
 }
 
 /* End reset CSS */
-#pop-up-cover {
+/* #pop-up-cover {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0, .5);
     position: fixed;
     z-index: 9;
-}
+} */
 
 header {
     width: 100%;
