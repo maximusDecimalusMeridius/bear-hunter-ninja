@@ -2,17 +2,17 @@ function generateChoice() {
     switch(Math.floor(Math.random() * 3)){
         case 0:
             computerChoice = "Bear";
-            computerCharacterNode.style.backgroundColor = "red";
+            playerTwoCharacterNode.src = "./assets/images/characters/bear/bear_0.png";
             return("bear");
 
         case 1:
             computerChoice = "Hunter";
-            computerCharacterNode.style.backgroundColor = "blue";
+            playerTwoCharacterNode.src = "./assets/images/characters/hunter/hunter_0.png";
             return("hunter");
 
         case 2:
             computerChoice = "Ninja";
-            computerCharacterNode.style.backgroundColor = "green";
+            playerTwoCharacterNode.src = "./assets/images/characters/ninja/ninja_0.png";
             return("ninja");
 
         default:
@@ -22,38 +22,37 @@ function generateChoice() {
 }
 
 function whoWon(human, computer) {
-
-    console.log(human, computer);
     if(human === computer){
+        statusMessage.innerHTML = "TIE!";
         return("tie");
     } else {
         switch (computer){
             case ("bear"):
                 if(human === "hunter"){
-                    outcomeMessage = "You shoot the bear *BANG* and win!!";
+                    statusMessage.innerHTML = "You shoot the bear *BANG* and win!!";
                     return("win");
                 } else if (human === "ninja"){
-                    outcomeMessage = "The bear overpowers you. You Lose :("
+                    statusMessage.innerHTML = "The bear overpowers you. You Lose :("
                     return("loss");
                 }
                 break;
                 
             case ("hunter"):
                 if(human === "bear"){
-                    outcomeMessage = "Headshot, you lose :("
+                    statusMessage.innerHTML = "Headshot, you lose :("
                     return("loss");
                 } else if(human === "ninja") {
-                    outcomeMessage = "Your ninja skills prevail! You win!!";
+                    statusMessage.innerHTML = "Your ninja skills prevail! You win!!";
                     return("win");
                 }
                 break;
                     
             case ("ninja"):
                 if(human === "bear"){
-                    outcomeMessage = "You overpower the ninja and WIN!!";
+                    statusMessage.innerHTML = "You overpower the ninja and WIN!!";
                     return("win");
                 } else if(human === "hunter"){
-                    outcomeMessage = "You didn't hear the ninja. You lose.";
+                    statusMessage.innerHTML = "You didn't hear the ninja. You lose.";
                     return("loss");
                 }
                 break;
@@ -66,6 +65,17 @@ function whoWon(human, computer) {
 }
 
 function countIt(result) {
+    console.log(userCharacter);
+
+    if(userCharacter === "bear"){
+        document.getElementById("bear-picks").innerHTML = `${++bearCount}`;
+    } else if (userCharacter === "hunter") {
+        document.getElementById(`${userCharacter}-picks`).innerHTML = `${++hunterCount}`;
+    } else if (userCharacter === "ninja") {
+        document.getElementById("ninja-picks").innerHTML = `${++ninjaCount}`;
+        ninjaCount++;
+    } else alert("You haven't selected a player yet!");
+
     switch (result){
         case ("win"):
             document.getElementById("wins").innerHTML = `${++winCount}`;
@@ -103,7 +113,7 @@ let popUpButtonNode = document.getElementById("pop-up-button");
 let gameWindowTopNode = document.getElementById("game-window-top");
 let backgroundNode = document.getElementById("background-image");
 let playerOneCharacterNode = document.getElementById("player-one-pic");
-let playerTwoCharacterNode = document.getElementById("#player-two img");
+let playerTwoCharacterNode = document.getElementById("player-two-pic");
 let computerCharacterNode = document.getElementById("player-two");
 let statusMessage = document.getElementById("status-message");
 let fightButton = document.getElementById("fight-button");
@@ -132,7 +142,6 @@ function ChooseCharacter(choice){
     switch(choice){
         case ("bear"):
             playerOneCharacterNode.src = "./assets/images/characters/bear/bear_0.png";
-            playerOneCharacterNode.parentNode.style.backgroundColor = "rgba(255, 255, 255, .1)";
             return("bear");
         case ("hunter"): 
             playerOneCharacterNode.src = "./assets/images/characters/hunter/hunter_0.png";
