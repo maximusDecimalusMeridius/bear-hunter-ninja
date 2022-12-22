@@ -73,7 +73,6 @@ function countIt(result) {
         document.getElementById(`${userCharacter}-picks`).innerHTML = `${++hunterCount}`;
     } else if (userCharacter === "ninja") {
         document.getElementById("ninja-picks").innerHTML = `${++ninjaCount}`;
-        ninjaCount++;
     } else alert("You haven't selected a player yet!");
 
     switch (result){
