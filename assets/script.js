@@ -1,32 +1,18 @@
-// As a user, I want to play Rock, Paper, Scissors against an automated opponent.
-// As a user, I can enter R, P, or S to signify my choice of rock, paper, or scissors.
-// As a user, I expect the computer to choose R, P, or S in return.
-// As a user, I want the option to play again whether I win or lose.
-// As a user, I want to see my total wins, ties, and losses after each round.
-
-// Specifications
-// Must use:
-// alert()[Pop-up message with OK button]
-// confirm()[Pop-up message with OK button and cancel]
-// prompt()[text-input with OK and cancel button]
-// methods to collect user input and display information to the user.
-
-// The computer's selection must be random to ensure a fair game.
 function generateChoice() {
     switch(Math.floor(Math.random() * 3)){
         case 0:
             computerChoice = "Bear";
-            computerCharacterNode.style.backgroundColor = "red";
+            playerTwoCharacterNode.src = "./assets/images/characters/bear/bear_0.png";
             return("bear");
 
         case 1:
             computerChoice = "Hunter";
-            computerCharacterNode.style.backgroundColor = "blue";
+            playerTwoCharacterNode.src = "./assets/images/characters/hunter/hunter_0.png";
             return("hunter");
 
         case 2:
             computerChoice = "Ninja";
-            computerCharacterNode.style.backgroundColor = "green";
+            playerTwoCharacterNode.src = "./assets/images/characters/ninja/ninja_0.png";
             return("ninja");
 
         default:
@@ -36,37 +22,37 @@ function generateChoice() {
 }
 
 function whoWon(human, computer) {
-console.log(human, computer);
     if(human === computer){
+        statusMessage.innerHTML = "TIE!";
         return("tie");
     } else {
         switch (computer){
             case ("bear"):
                 if(human === "hunter"){
-                    outcomeMessage = "You shoot the bear *BANG* and win!!";
+                    statusMessage.innerHTML = "You shoot the bear *BANG* and win!!";
                     return("win");
                 } else if (human === "ninja"){
-                    outcomeMessage = "The bear overpowers you. You Lose :("
+                    statusMessage.innerHTML = "The bear overpowers you. You Lose :("
                     return("loss");
                 }
                 break;
                 
             case ("hunter"):
                 if(human === "bear"){
-                    outcomeMessage = "Headshot, you lose :("
+                    statusMessage.innerHTML = "Headshot, you lose :("
                     return("loss");
                 } else if(human === "ninja") {
-                    outcomeMessage = "Your ninja skills prevail! You win!!";
+                    statusMessage.innerHTML = "Your ninja skills prevail! You win!!";
                     return("win");
                 }
                 break;
                     
             case ("ninja"):
                 if(human === "bear"){
-                    outcomeMessage = "You overpower the ninja and WIN!!";
+                    statusMessage.innerHTML = "You overpower the ninja and WIN!!";
                     return("win");
                 } else if(human === "hunter"){
-                    outcomeMessage = "You didn't hear the ninja. You lose.";
+                    statusMessage.innerHTML = "You didn't hear the ninja. You lose.";
                     return("loss");
                 }
                 break;
@@ -79,33 +65,65 @@ console.log(human, computer);
 }
 
 function countIt(result) {
+    console.log(userCharacter);
+
+    if(userCharacter === "bear"){
+        document.getElementById("bear-picks").innerHTML = `${++bearCount}`;
+    } else if (userCharacter === "hunter") {
+        document.getElementById(`${userCharacter}-picks`).innerHTML = `${++hunterCount}`;
+    } else if (userCharacter === "ninja") {
+        document.getElementById("ninja-picks").innerHTML = `${++ninjaCount}`;
+        ninjaCount++;
+    } else alert("You haven't selected a player yet!");
+
     switch (result){
         case ("win"):
             document.getElementById("wins").innerHTML = `${++winCount}`;
+            document.getElementById("wins").classList.toggle("red-to-white-anim");
+            setTimeout(() => {document.getElementById("wins").classList.toggle("red-to-white-anim");}, 400);
             break;
         case ("tie"):
             document.getElementById("ties").innerHTML = `${++tieCount}`;
+            document.getElementById("ties").classList.toggle("red-to-white-anim");
+            setTimeout(() => {document.getElementById("ties").classList.toggle("red-to-white-anim");}, 400);
             break;
         case ("loss"):
             document.getElementById("losses").innerHTML = `${++lossCount}`;
+            document.getElementById("losses").classList.toggle("red-to-white-anim");
+            setTimeout(() => {document.getElementById("losses").classList.toggle("red-to-white-anim");}, 400);
             break;
         default:
             break;
     }
+
 }
 
 // Variables
 var userCharacter, computerCharacter;                   // Declare inputs
 var winCount = 0, lossCount = 0, tieCount = 0;          // Initialize counters
 var bearCount = 0, hunterCount = 0, ninjaCount = 0;          // Initialize counters
+var lastClicked;
 
 // Get elements
+let greetingNode = document.getElementById("greetings");
+let closeGreetingNode = document.getElementById("close-greeting");
 let popUpMessageNode = document.getElementById("pop-up-message");
 let popUpCoverNode = document.getElementById("pop-up-cover");
+let popUpButtonNode = document.getElementById("pop-up-button");
 let gameWindowTopNode = document.getElementById("game-window-top");
-let playerCharacterNode = document.getElementById("player-one");
+let backgroundNode = document.getElementById("background-image");
+let playerOneCharacterNode = document.getElementById("player-one-pic");
+let playerTwoCharacterNode = document.getElementById("player-two-pic");
 let computerCharacterNode = document.getElementById("player-two");
 let statusMessage = document.getElementById("status-message");
+let fightButton = document.getElementById("fight-button");
+
+closeGreetingNode.addEventListener("click", () => {greetingNode.style.left = "-400px"});
+
+fightButton.addEventListener("click", Fight);
+
+popUpCoverNode.addEventListener("click", HidePopUp);
+popUpButtonNode.addEventListener("click", HidePopUp);
 
 function ShowPopUp() {
     popUpMessageNode.style.display = "flex";
@@ -120,46 +138,70 @@ function HidePopUp() {
 function ChooseCharacter(choice){
     userCharacter = choice;
     statusMessage.innerHTML = `You picked ${choice}!!`;
-    
+
     switch(choice){
         case ("bear"):
-            playerCharacterNode.style.backgroundColor = "red";
-            bearCount++;
-            document.getElementById(`${choice}-picks`).innerHTML = `${bearCount}`
-            break;
-
-        case ("hunter"):
-            playerCharacterNode.style.backgroundColor = "blue";    
-            hunterCount++;
-            document.getElementById(`${choice}-picks`).innerHTML = `${hunterCount}`
-            break;
-
+            playerOneCharacterNode.src = "./assets/images/characters/bear/bear_0.png";
+            return("bear");
+        case ("hunter"): 
+            playerOneCharacterNode.src = "./assets/images/characters/hunter/hunter_0.png";
+            return("hunter");
         case ("ninja"):
-            playerCharacterNode.style.backgroundColor = "green";
-            ninjaCount++;
-            document.getElementById(`${choice}-picks`).innerHTML = `${ninjaCount}`
-            break;
+            playerOneCharacterNode.src = "./assets/images/characters/ninja/ninja_0.png";
+            return("ninja");
 
         default:
             break;
     }
-
-    Fight();
 }
 
 function ChooseBackground(choice){
+    // Current number of options per background
+    const numberOfOptions = 4;
+    let isTheSame = true;
+    let lastIndex;
+
     switch (choice){
+
         case "forest":
-            gameWindowTopNode.style.backgroundColor = "green";
+            while (isTheSame){
+                lastIndex = backgroundNode.src.charAt(backgroundNode.src.length - 5);
+                backgroundNode.src = `./assets/images/backgrounds/forest/forest_${Math.floor(Math.random() * numberOfOptions)}.png`;
+                if(backgroundNode.src.charAt(backgroundNode.src.length - 5) === lastIndex){
+                    isTheSame = true;
+                } else { isTheSame = false; }
+            }
             break;
 
         case "lava":
-            gameWindowTopNode.style.backgroundColor = "blue";
+            while (isTheSame){
+                lastIndex = backgroundNode.src.charAt(backgroundNode.src.length - 5);
+                backgroundNode.src = `./assets/images/backgrounds/lava/lava_${Math.floor(Math.random() * numberOfOptions)}.png`;
+                if(backgroundNode.src.charAt(backgroundNode.src.length - 5) === lastIndex){
+                    isTheSame = true;
+                } else { isTheSame = false; }
+            }
             break;
 
         case "grocery":
-            gameWindowTopNode.style.backgroundColor = "pink";
+            while (isTheSame){
+                lastIndex = backgroundNode.src.charAt(backgroundNode.src.length - 5);
+                backgroundNode.src = `./assets/images/backgrounds/grocery/grocery_${Math.floor(Math.random() * numberOfOptions)}.png`;
+                if(backgroundNode.src.charAt(backgroundNode.src.length - 5) === lastIndex){
+                    isTheSame = true;
+                } else { isTheSame = false; }
+            }
             break;
+
+        case "dh":
+        while (isTheSame){
+            lastIndex = backgroundNode.src.charAt(backgroundNode.src.length - 5);
+            backgroundNode.src = `./assets/images/backgrounds/dh/dh_${Math.floor(Math.random() * numberOfOptions)}.png`;
+            if(backgroundNode.src.charAt(backgroundNode.src.length - 5) === lastIndex){
+                isTheSame = true;
+            } else { isTheSame = false; }
+        }
+        break;
 
         default:
             break;
@@ -169,43 +211,5 @@ function ChooseBackground(choice){
 
 function Fight(){
     countIt(whoWon(userCharacter, generateChoice()));
-    console.log(winCount, tieCount, lossCount);
-    
+    console.log(winCount, tieCount, lossCount); 
 }
-
-// Display welcome message to user explaining the rules
-// Caution, disgusting spacing to bump to multiple lines in dialog box!!!
-// if (confirm("Welcome to Browser RPS!  Click 'OK/Confirm' to Proceed                                   Click 'Cancel' to run away :'(")){
-    
-//     do{
-    
-//         // Read and store input from user
-//         // Generate PC choice   
-//         userCharacter = prompt("Please Select R, P, or S to signify your choice of rock, paper, or scissors");
-//         while(!validationArray.includes(userCharacter) || userCharacter === null){
-//             userCharacter = prompt("ERROR: Please select a VALID choice - R, P, or S to signify your choice of rock, paper, or scissors");
-//         }
-//         computerCharacter = generateChoice();
-        
-//         // Compare values and count
-//         countIt(whoWon(userCharacter.toLowerCase(), computerCharacter));
-        
-//         // Display scoreboard
-//         displayRecord();
-
-//         if(!confirm("Would you like to play again?")){
-//            playAgain = 0; 
-//         }
-//     } while (playAgain === 1);
-
-// }
-// else {
-
-//     // Change goodbye message if user visits the page but doesn't play a round
-//     var goodbyeMessage = document.getElementById("goodbye-message");
-//     var newSpan = document.createElement("span");
-//     var text = document.createTextNode("even though you didn't play :P");
-//     newSpan.appendChild(text);
-//     goodbyeMessage.appendChild(newSpan);
-
-// }

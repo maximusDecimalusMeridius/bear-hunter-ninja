@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="./assets/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/style/style.css">
     <script src="./assets/script.js" defer></script>
 </head>
 <body id="body" onload="ShowPopUp()">
@@ -16,46 +16,68 @@
     <!-- header>div.site-banner^main>section#game-window.game-section>div#game-window-top.game-frame>div.game-window-item*4^div#game-window-bottom.game-frame>ul#role-select.selection-menu>li.role-select-item*3^ul#background-select.selection-menu>li.background-select-item*3^^^section#status-bar.game-section>div#status-window>p#status-message^^^footer>div#thanks.footer-div+div#div2.footer-div -->
 
     <header>
-        <div class="site-banner"></div>
+        <div class="site-banner">
+            <h1 id="greetings">
+                <div id="bear-title" class="no-select">Bear</div>
+                <div id="hunter-title" class="no-select">Hunter </div>
+                <div id="ninja-title" class="no-select">Ninja</div>
+                <div id="close-greeting">X</div>
+            </h1>
+            <ul class="nav-menu">
+                <li class="no-select" id="nav-rules">Rules</li>
+                <li class="no-select" id="nav-about">About</li>
+            </ul>
+        </div>
     </header>
     
     <main>
         <div id="game-window">
             <!-- Top game window where all the action happens -->
             <div id="game-window-top" class="game-frame">
+                
                 <div id="game-info" class="game-window-item">
-                    <ul id="score-line">
-                        <li class="score-item">Wins: <span id="wins">0</span></li>
-                        <li class="score-item">Ties: <span id="ties">0</span></li>
-                        <li class="score-item">Losses: <span id="losses">0</span></li>
-                    </ul>
-                    <ul id="stats-line">
-                        <li class="stats-item">Bear Picks: <span id="bear-picks">0</span></li>
-                        <li class="stats-item">Hunter Picks: <span id="hunter-picks">0</span></li>
-                        <li class="stats-item">Ninja Picks: <span id="ninja-picks">0</span></li>
-                    </ul>
+                    <img id="banner-image" src="./assets/images/backgrounds/banner.png" alt="Banner of a scoreboard;"/>
+                    <div id="scoreboard">
+                        <ul id="score-line">
+                            <li class="score-item">Wins: <span id="wins" class="score">0</span></li>
+                            <li class="score-item">Ties: <span id="ties" class="score">0</span></li>
+                            <li class="score-item">Losses: <span id="losses" class="score">0</span></li>
+                        </ul>
+                        <ul id="stats-line">
+                            <li class="stats-item">Bear Picks: <span id="bear-picks"  class="score">0</span></li>
+                            <li class="stats-item">Hunter Picks: <span id="hunter-picks"  class="score">0</span></li>
+                            <li class="stats-item">Ninja Picks: <span id="ninja-picks"  class="score">0</span></li>
+                        </ul>
+                    </div> "./assets/images/characters/bear/bear_0.png"
                 </div>
+                <img src="./assets/images/backgrounds/forest/forest_0.png" id="background-image"></img>
                 <div id="pop-up-message" class="game-window-item">
-                    
                     <div id="pop-up-title">Welcome!</div>
                     <p id="pop-up-text">JavaScript Bear, Hunter, Ninja<br><br>Select a role and click FIGHT!</p>
-                    <div id="pop-up-button" onclick="HidePopUp()">OK!</div>
+                    <div id="pop-up-button">OK!</div>
                 </div>
-                <div id="player-one" class="player"></div>
-                <div id="player-two" class="player"></div>
+                <div id="player-one" class="player">
+                    <img id="player-one-pic" src="" />
+                </div>
+                <div id="player-two" class="player">
+                    <img id="player-two-pic" src="" />
+                </div>
             </div>
 
             <!-- Bottom game window with selection menus -->
-            <div id="game-window-bottom" class="game-frame">
+            <div id="game-window-bottom">
+                
                 <ul id="role-select" class="selection-menu">
-                    <li class="role-select-item no-select" onclick="ChooseCharacter('bear')">Bear</li>
-                    <li class="role-select-item no-select" onclick="ChooseCharacter('hunter')">Hunter</li>
-                    <li class="role-select-item no-select" onclick="ChooseCharacter('ninja')">Ninja</li>
+                    <div id="fight-button">FIGHT!</div>
+                    <li class="role-select-item no-select" onclick="ChooseCharacter('bear')"><img id="bear-icon" src="./assets/images/icons/bear.png" alt="Icon of a bear" /></li>
+                    <li class="role-select-item no-select" onclick="ChooseCharacter('hunter')"><img id="hunter-icon" src="./assets/images/icons/hunter_icon.png" alt="Icon of a hunter" /></li>
+                    <li class="role-select-item no-select" onclick="ChooseCharacter('ninja')"><img id="ninja-icon" src="./assets/images/icons/ninja.png" alt="Icon of a ninja" /></li>
                 </ul>
                 <ul id="background-select" class="selection-menu">
                     <li class="background-select-item no-select" onclick="ChooseBackground('forest')">Forest</li>
                     <li class="background-select-item no-select" onclick="ChooseBackground('lava')">Lava</li>
                     <li class="background-select-item no-select" onclick="ChooseBackground('grocery')">Grocery Store</li>
+                    <li class="background-select-item no-select" onclick="ChooseBackground('dh')">Perish Difficultly</li>
                 </ul>
             </div>
         </div>
