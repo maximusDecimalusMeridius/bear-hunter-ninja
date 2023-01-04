@@ -291,10 +291,6 @@ main {
     font-weight: bold;
 }
 
-#pop-up-text {
-
-}
-
 #pop-up-button {
     width: 100px;
     height: 35px;
@@ -382,7 +378,7 @@ main {
     height: 40px;
     background-color: red;
     position: absolute;
-    top: -50px;px;
+    top: -50px;
     left: calc(50% - 38px);
     display: flex;
     justify-content: center;
